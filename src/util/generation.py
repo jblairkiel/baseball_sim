@@ -3,8 +3,9 @@ from random import gauss
 from src.util.randoms import generate_random_name
 from src.player import Player
 from src.team import Team
+from src.league import League
 
-def generate_player(position, jersey_num=None):
+def generate_player(position, jersey_num=None) -> Player:
     
     f_name, l_name = generate_random_name()
 
@@ -13,7 +14,7 @@ def generate_player(position, jersey_num=None):
     new_player = Player(f_name, l_name, position, jersey_number=jersey_num)
     return new_player
 
-def generate_team():
+def generate_team() -> Team:
     #Rostered team
     posList = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     teamRoster = []
@@ -31,7 +32,7 @@ def generate_team():
     teamname = f"Team #{rand.randrange(0,100)}"
     return Team(teamname, players=teamRoster, coach=f"{coach_f_name} {coach_l_name}")
     
-def generate_league():
+def generate_league() -> League:
     #League Size
     league_size = 30
     league_list = []
@@ -47,6 +48,8 @@ def generate_league():
     [print(a) for a in league_list]
     
 def generate_pitch():
+
+    pitch_choices = ["fb", "ch" "cur"]
 
     x0_full_bounds = -2.0
     x1_full_bounds = 2.0
@@ -67,6 +70,7 @@ def generate_pitch():
 
     rand_x_pitch = gauss(gaussian_x_mean, gaussian_x_sigma)
     rand_y_pitch = gauss(gaussian_y_mean, gaussian_y_sigma)
+    rand_pitch_choice = rand.choice(pitch_choices)
 
     #Implement Ump Error
     if (x0_strike_bounds < rand_x_pitch < x1_strike_bounds) and (y0_strike_bounds < rand_y_pitch < y1_strike_bounds):
@@ -77,5 +81,10 @@ def generate_pitch():
     return {
         "x": rand_x_pitch,
         "y": rand_y_pitch,
-        "outcome" : outcome
+        "outcome" : outcome,
+        "pitch_type": rand_pitch_choice
     }
+
+def generate_game_runs():
+
+    
