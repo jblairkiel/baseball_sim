@@ -4,6 +4,7 @@ from src.util.randoms import generate_random_name
 from src.player import Player
 from src.team import Team
 from src.league import League
+from src.game import Game
 
 def generate_player(position, jersey_num=None) -> Player:
     
@@ -30,7 +31,11 @@ def generate_team() -> Team:
     #assert isinstance(generate_random_name(), tuple), 'Function `generate_random_name()` did not return a tuple.'   
 
     teamname = f"Team #{rand.randrange(0,100)}"
-    return Team(teamname, players=teamRoster, coach=f"{coach_f_name} {coach_l_name}")
+
+
+    #Team Value
+    teamValue = rand.randrange(0,20)
+    return Team(teamname, players=teamRoster, coach=f"{coach_f_name} {coach_l_name}", teamValue=teamValue)
     
 def generate_league() -> League:
     #League Size
@@ -85,6 +90,20 @@ def generate_pitch():
         "pitch_type": rand_pitch_choice
     }
 
-def generate_game_runs():
+def generate_game_runs(teamA: Team, teamB: Team):
 
+    #Dummy Logic Here
+
+    teamA_runs = -1
+    while teamA_runs < 0:
+        teamA_runs =  teamA.value * gauss(3, 1)
+
+        
+    teamB_runs = -1
+    while teamB_runs < 0:
+        teamB_runs =  teamB.value * gauss(3, 1)
+
+    
+
+    return [teamA_runs, teamB_runs]
     

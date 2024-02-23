@@ -2,12 +2,13 @@ from src.player import Player
 
 class Team():
 
-    def __init__(self, name, players=[], coach=None):
+    def __init__(self, name, players=[], coach=None, teamValue=None):
         self.name = name
         self.players = players
         self.coach = coach
         self.wins = 0
         self.losses = 0
+        self.team_value = 0
 
     def __str__(self):
         newline = '\n'
