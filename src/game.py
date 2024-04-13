@@ -25,11 +25,15 @@ class Game:
 
         team_a_runs = -4
         while team_a_runs <= 0:
-            team_a_runs = self.team_a.value * gauss(self.avg_max_runs, self.avg_min_runs)
+            team_a_runs = self.team_a.value * gauss(
+                self.avg_max_runs, self.avg_min_runs
+            )
 
         team_b_runs = -1
         while team_b_runs < 0:
-            team_b_runs = self.team_b.value * gauss(self.avg_max_runs, self.avg_min_runs)
+            team_b_runs = self.team_b.value * gauss(
+                self.avg_max_runs, self.avg_min_runs
+            )
 
         gr = Game_Result(team_a_runs, team_b_runs)
 

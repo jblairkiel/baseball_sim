@@ -22,7 +22,8 @@ class Pitch_Data(Generic_Data):
 
     def get_x_location_hist(self) -> px.scatter:
 
-        self.get_histogram("x")
+        his = self.get_histogram("x")
+        return his
 
     def show_x_location_hist(self):
 

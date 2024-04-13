@@ -27,7 +27,7 @@ class Pitch_Logic:
 
         # Normalize
         norm_avg_hit = (avg_hit - min_range) / (max_range - min_range)
-        return avg_hit
+        return norm_avg_hit
 
     def calculate_radius_hitability(self) -> float:
 
@@ -35,10 +35,11 @@ class Pitch_Logic:
         min_range = 0.1
         pi = math.pi
 
-        max_radius = max_radius * max_range
+        max_radius = min_range * max_range
 
         radius = self.pitch_x * self.pitch_y
         radius_sq = radius * radius
         radius_hitability = 1 / (pi * radius_sq)
 
         normalized_radius = (radius_hitability - 0) / (1 - 0)
+        return normalized_radius

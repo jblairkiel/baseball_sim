@@ -5,7 +5,9 @@ from src.player import Player
 from src.team import Team
 from src.league import League
 from src.game import Game
-from typing import List
+from src.util.logic.StrikeZone import StrikeZone
+from typing import List, Dict
+
 
 
 def generate_player(position, jersey_num=None) -> Player:
@@ -40,7 +42,7 @@ def generate_team() -> Team:
         teamname,
         players=team_roster,
         coach=f"{coach_f_name} {coach_l_name}",
-        teamValue=team_value,
+        team_value=team_value,
     )
 
 
@@ -60,32 +62,41 @@ def generate_league() -> League:
         print(a)
 
 
-def generate_pitch():
+def generate_pitch() -> Dict:
     """Randomly generates a pitch within bounds"""
     pitch_choices = ["fb", "ch" "cur"]
+   
+    full_pitch_bounds = StrikeZone().get_full_bounds()
 
-    x0_full_bounds = -2.0
-    x1_full_bounds = 2.0
-    y0_full_bounds = -2.0
-    y1_full_bounds = 2.0
-
-    x0_strike_bounds = -1.0
-    x1_strike_bounds = 1.0
-    y0_strike_bounds = -1.0
-    y1_strike_bounds = 1.0
     # gaussian curve
-
     gaussian_x_mean = 0
     gaussian_y_mean = 0
-    gaussian_x_sigma = 1.15
-    gaussian_y_sigma = 1.2
+    #gaussian_x_sigma = 1.15
+    #gaussian_y_sigma = 1.2
+    gaussian_x_sigma = full_pitch_bounds[0][0] / 2.25
+    gaussian_y_sigma = full_pitch_bounds[1][0] / 2.25
 
-    rand_x_pitch = gauss(gaussian_x_mean, gaussian_x_sigma)
-    rand_y_pitch = gauss(gaussian_y_mean, gaussian_y_sigma)
+    try:
+        rand_x_pitch = gauss(gaussian_x_mean, gaussian_x_sigma)
+    except Exception as _:
+        print("Invalid X Bounds")
+        return None
+    try:
+        rand_y_pitch = gauss(gaussian_y_mean, gaussian_y_sigma)
+    except Exception as _:
+        print("Invalid Y Bounds")
+        return None
     rand_pitch_choice = rand.choice(pitch_choices)
 
+    strike_pitch_bounds = StrikeZone().get_strike_bounds()
+    x0_strike_bounds = strike_pitch_bounds[0][0]
+    x1_strike_bounds = strike_pitch_bounds[0][1]
+    y0_strike_bounds = strike_pitch_bounds[1][0]
+    y1_strike_bounds = strike_pitch_bounds[1][1]
     # Implement Ump Error
-    if (x0_strike_bounds < rand_x_pitch < x1_strike_bounds) and (y0_strike_bounds < rand_y_pitch < y1_strike_bounds):
+    if (x0_strike_bounds < rand_x_pitch < x1_strike_bounds) and (
+        y0_strike_bounds < rand_y_pitch < y1_strike_bounds
+    ):
         outcome = "Strike"
     else:
         outcome = "Ball"
@@ -98,7 +109,7 @@ def generate_pitch():
     }
 
 
-def generate_game_runs(team_a: Team, team_b: Team):
+def generate_game_runs(team_a: Team, team_b: Team) -> List[int]:
     """Randomly Generates Game Results"""
     # Dummy Logic Here
 
@@ -111,3 +122,7 @@ def generate_game_runs(team_a: Team, team_b: Team):
         team_b_runs = team_b.value * gauss(3, 1)
 
     return [team_a_runs, team_b_runs]
+
+
+if __name__ == "__main__":
+    print("Running generation module")

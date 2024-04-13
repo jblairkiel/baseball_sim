@@ -13,8 +13,6 @@ class Player:
         first_name: str = "",
         last_name: str = "",
     ):
-        if position is None or jersey_number is None or first_name is None or last_name is None:
-            raise ValueError("Must have all attrs be not None")
 
         self.first_name = first_name
         self.last_name = last_name
@@ -38,9 +36,20 @@ class Player:
             "on_base_percentage": 0.0,
             "slugging_percentage": 0.0,
         }
+        if (
+            self.position is None
+            or self.jersey_number is None
+            or self.first_name is None
+            or self.last_name is None
+        ):
+            raise ValueError("Must have all attrs be not None")
 
     def __str__(self):
-        if self.first_name is None or self.last_name is None or self.jersey_number is None:
+        if (
+            self.first_name is None
+            or self.last_name is None
+            or self.jersey_number is None
+        ):
             raise ValueError("Must have all attrs be not None")
         return f"{self.first_name} {self.last_name} (#{self.jersey_number})"
 
@@ -110,3 +119,7 @@ class Player:
             self.stats["caught_stealing"] += 1
         else:
             raise ValueError(f"Invalid event: {event}")
+
+
+if __name__ == "__main__":
+    print("Running player module")
