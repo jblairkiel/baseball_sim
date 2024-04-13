@@ -6,3 +6,5 @@ plotly
 black
 pylint
 names
+coverage
+coverage-badge
