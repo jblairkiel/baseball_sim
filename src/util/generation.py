@@ -3,6 +3,7 @@ from random import gauss
 from src.util.randoms import generate_random_name
 from src.player import Player
 from src.team import Team
+from src.pitch import Pitch
 from src.league import League
 from src.game import Game
 from src.util.logic.StrikeZone import StrikeZone
@@ -62,7 +63,7 @@ def generate_league() -> League:
         print(a)
 
 
-def generate_pitch() -> Dict:
+def generate_pitch() -> Pitch:
     """Randomly generates a pitch within bounds"""
     pitch_choices = ["fb", "ch" "cur"]
    
@@ -87,26 +88,11 @@ def generate_pitch() -> Dict:
         print("Invalid Y Bounds")
         return None
     rand_pitch_choice = rand.choice(pitch_choices)
+    pitch = Pitch(rand_x_pitch, rand_y_pitch, rand_pitch_choice)
 
-    strike_pitch_bounds = StrikeZone().get_strike_bounds()
-    x0_strike_bounds = strike_pitch_bounds[0][0]
-    x1_strike_bounds = strike_pitch_bounds[0][1]
-    y0_strike_bounds = strike_pitch_bounds[1][0]
-    y1_strike_bounds = strike_pitch_bounds[1][1]
-    # Implement Ump Error
-    if (x0_strike_bounds < rand_x_pitch < x1_strike_bounds) and (
-        y0_strike_bounds < rand_y_pitch < y1_strike_bounds
-    ):
-        outcome = "Strike"
-    else:
-        outcome = "Ball"
+    return pitch
 
-    return {
-        "x": rand_x_pitch,
-        "y": rand_y_pitch,
-        "outcome": outcome,
-        "pitch_type": rand_pitch_choice,
-    }
+
 
 
 def generate_game_runs(team_a: Team, team_b: Team) -> List[int]:
