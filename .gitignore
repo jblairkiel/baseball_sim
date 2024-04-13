@@ -10,7 +10,7 @@ src\__pycache__\*
 src\util\*
 *.pyc
 *cpython*
-output.coverage.svg
+output/coverage.svg
 
 #####
 # First, rules intended to apply in all subdirectories.

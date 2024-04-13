@@ -26,11 +26,11 @@ class PitchLogic:
         # Closest to the sweet spot
         x_hitability = abs(self.pitch_x) - strike_range
         #x_hitability = (flat_odds_calculator / (abs_x_hit_val + 0.01)) - abs_x_hit_val
-        x_hitability = (rand_x_pitch / strike_bounds) - strike_range
+        x_hitability = (rand_x_pitch / strike_range) - strike_range
 
         abs_y_hit_val = abs(self.pitch_y)
         #y_hitability = (flat_odds_calculator / (abs_y_hit_val + 0.01)) - abs_y_hit_val
-        y_hitability = (rand_y_pitch / strike_bounds) - strike_range
+        y_hitability = (rand_y_pitch / strike_range) - strike_range
 
         avg_hit = (x_hitability * y_hitability) / 2
 
