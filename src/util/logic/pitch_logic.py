@@ -1,9 +1,10 @@
 import math
+from random import gauss
 
 from src.util.logic.StrikeZone import StrikeZone
 
 
-class Pitch_Logic:
+class PitchLogic:
 
     def __init__(self, pitch_x, pitch_y, pitch_type):
 
@@ -11,14 +12,15 @@ class Pitch_Logic:
         self.pitch_y = pitch_y
         self.pitch_type = pitch_type
 
-    def calculate_hitability(self) -> float:
+    def calculate_hitability(self, flat_odds_calculator=.1) -> float:
 
         full_pitch_bounds = StrikeZone().get_full_bounds()
-        max_range = full_pitch_bounds[0] * 2
+        max_range = full_pitch_bounds[0][0] * 2
         min_range = 0.1
 
-        flat_odds_calculator = 0.1
-
+        rand_x_pitch = gauss(0, flat_odds_calculator)
+        rand_y_pitch = gauss(0, flat_odds_calculator)
+    
         # Closest to the sweet spot
         abs_x_hit_val = abs(self.pitch_x)
         x_hitability = (flat_odds_calculator / (abs_x_hit_val + 0.01)) - abs_x_hit_val
