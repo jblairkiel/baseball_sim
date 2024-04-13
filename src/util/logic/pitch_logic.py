@@ -1,5 +1,7 @@
 import math
 
+from src.util.logic.StrikeZone import StrikeZone
+
 
 class Pitch_Logic:
 
@@ -11,7 +13,8 @@ class Pitch_Logic:
 
     def calculate_hitability(self) -> float:
 
-        max_range = 4
+        full_pitch_bounds = StrikeZone().get_full_bounds()
+        max_range = full_pitch_bounds[0] * 2
         min_range = 0.1
 
         flat_odds_calculator = 0.1
