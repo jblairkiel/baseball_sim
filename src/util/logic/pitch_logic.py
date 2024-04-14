@@ -1,5 +1,7 @@
 import math
 from random import gauss
+
+import numpy as np
 from src.pitch import Pitch
 
 from src.util.logic.StrikeZone import StrikeZone
@@ -30,27 +32,15 @@ class PitchLogic:
 
         full_pitch_bounds = StrikeZone().get_full_bounds()
         strike_bounds = StrikeZone().get_strike_bounds()
-        max_range = full_pitch_bounds[0][0] * 2
-        strike_range = strike_bounds[0][0] * 2
-        min_range = 0.1
 
-        rand_x_pitch = gauss(0, max_range / hit_odds_calculator)
-        rand_y_pitch = gauss(0, max_range / hit_odds_calculator)
-    
-        # Closest to the sweet spot
-        x_hitability = abs(pitch.pitch_x) - strike_range
-        #x_hitability = (flat_odds_calculator / (abs_x_hit_val + 0.01)) - abs_x_hit_val
-        x_hitability = (rand_x_pitch / strike_range) - strike_range
+        rand_x_pitch = pitch.pitch_x
+        rand_y_pitch = pitch.pitch_y
+        mean = 0
+        sig = 1
+        
+        gaussian_value = np.exp(-((rand_x_pitch - mean)**2 + (rand_y_pitch - mean)**2) / (2 * sig**2))
 
-        abs_y_hit_val = abs(pitch.pitch_y)
-        #y_hitability = (flat_odds_calculator / (abs_y_hit_val + 0.01)) - abs_y_hit_val
-        y_hitability = (rand_y_pitch / strike_range) - strike_range
-
-        avg_hit = (x_hitability * y_hitability) / 2
-
-        # Normalize
-        norm_avg_hit = (avg_hit - min_range) / (max_range - min_range)
-        return norm_avg_hit
+        return gaussian_value
 
     def calculate_radius_hitability(self, pitch: Pitch) -> float:
 
