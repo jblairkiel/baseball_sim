@@ -42,4 +42,9 @@ jobs:
       run: |
         coverage run -m pytest
         coverage-badge -o output/coverage.svg
+    - name: Upload artifact
+      uses: actions/upload-pages-artifact@v1
+      with:
+        # Upload entire repository
+        path: './output/coverage.svg'
           

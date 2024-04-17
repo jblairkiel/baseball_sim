@@ -22,6 +22,7 @@ class Player:
         else:
             self.jersey_number = jersey_number
         self.stats = {
+            "discipline": 0,
             "at_bats": 0,
             "hits": 0,
             "home_runs": 0,
@@ -32,7 +33,7 @@ class Player:
             "walks": 0,
             "stolen_bases": 0,
             "caught_stealing": 0,
-            "batting_average": 0.0,
+            "batting_average": 100.0,
             "on_base_percentage": 0.0,
             "slugging_percentage": 0.0,
         }
@@ -81,6 +82,7 @@ class Player:
         )
         return total_bases / self.stats["at_bats"]
 
+    
     def update_stats(self, event):
         """'Updates stats"""
         if event == "single":
