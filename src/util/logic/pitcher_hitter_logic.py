@@ -31,24 +31,27 @@ class PitcherHitterLogic:
     
         return cur_hitability
 
-    def determine_hitability_from_value(self, pitch_x: float, pitch_y: float, rand_pitch_hitability: float=.02) -> str:
+    def determine_hitability_from_value(self, pitch_x: float, pitch_y: float, pitch_hitability: float, ump_outcome:str, rand_pitch_hitability: float=.02) -> str:
 
-        rand_chance = (rand.randrange(0, self.rand_hit * 100)) / 100
-        is_strike = self.is_strike(pitch_x, pitch_y)
+        rand_chance = (pitch_hitability * rand.randrange(0, self.rand_hit * 100)) / 100
+        if ump_outcome == "Strike":
+            is_strike = True
+        else: 
+            is_strike = False
         if is_strike:
-            if  self.hitability > (rand_pitch_hitability + rand_chance):
+            if  pitch_hitability > (rand_pitch_hitability + rand_chance):
                 outcome = "Hit"
             else :
                 outcome = "Strike"
         else: 
-            if  self.hitability < (rand_pitch_hitability + rand_chance):
+            if  pitch_hitability < (rand_pitch_hitability + rand_chance):
                 outcome = "Ball"
             else:
                 outcome = "Strike"
         return outcome
 
         
-    def get_call_outcome(self, pitch_x: float, pitch_y: float)->str:
+    def get_ump_call_outcome(self, pitch_x: float, pitch_y: float)->str:
         # Implement Ump Error
         if (self.x0_strike_bounds < pitch_x < self.x1_strike_bounds) and (
             self.y0_strike_bounds < pitch_y < self.y1_strike_bounds
@@ -70,6 +73,7 @@ class PitcherHitterLogic:
         sig = 1
         
         gaussian_value = np.exp(-((rand_x_pitch - mean)**2 + (rand_y_pitch - mean)**2) / (2 * sig**2))
+        #gaussian_value = gauss(0 ,sigma=)
         gaussian_value = gaussian_value * hit_odds_calculator
         return gaussian_value
 

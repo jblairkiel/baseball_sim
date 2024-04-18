@@ -74,8 +74,8 @@ def generate_pitch() -> Pitch:
     gaussian_y_mean = 0
     #gaussian_x_sigma = 1.15
     #gaussian_y_sigma = 1.2
-    gaussian_x_sigma = full_pitch_bounds[0][0] / 2.25
-    gaussian_y_sigma = full_pitch_bounds[1][0] / 2.25
+    gaussian_x_sigma = full_pitch_bounds[0][0] / 2.55
+    gaussian_y_sigma = full_pitch_bounds[1][0] / 2.55
 
     try:
         rand_x_pitch = gauss(gaussian_x_mean, gaussian_x_sigma)
