@@ -36,15 +36,11 @@ jobs:
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
-        pytest
-
-    - name: pytest-cov
-      run: |
-        coverage run -m pytest
-        coverage-badge -o output/coverage.svg
-    - name: Upload artifact
-      uses: actions/upload-pages-artifact@v1
+        pip install pytest pytest-cov
+        python -m pytest --cov=./myapp --cov-report xml
+    - name: Coveralls
+      uses: coverallsapp/github-action@master
       with:
-        # Upload entire repository
-        path: './output/'
-          
+        github-token: ${{ secrets.GITHUB_TOKEN }}
+        path-to-lcov: .coverage.xml
+      
