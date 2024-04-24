@@ -13,6 +13,16 @@ class TestPlayer:
     # def test_single_player_generate():
     #     x = generate_player()
     #     assert type(x) == Player
+    def test_player_attrs_not_none():
+        player_obj = generate_player()
+        assert player_obj.first_name is not None
+        assert player_obj.last_name is not None
+        assert player_obj.position is not None
+        assert player_obj.stats is not None
+
+    def test_player_str_not_none():
+        player_obj = generate_player()
+        assert player_obj.__str__() is not None
 
     @given(text(), text(), integers(1, 9), integers(0, 99))
     def test_generate_single_random_player_random_chars(self, f, l, p, n):
