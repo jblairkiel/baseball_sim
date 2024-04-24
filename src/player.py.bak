@@ -2,8 +2,6 @@
 
 import random as rand
 
-from src.player_stats import PlayerStats
-
 
 class Player:
     """Player Class"""
@@ -23,7 +21,22 @@ class Player:
             self.jersey_number = rand.randrange(0, 99)
         else:
             self.jersey_number = jersey_number
-        self.stats = PlayerStats().__dict__()
+        self.stats = {
+            "discipline": 0,
+            "at_bats": 0,
+            "hits": 0,
+            "home_runs": 0,
+            "runs_batted_in": 0,
+            "doubles": 0,
+            "triples": 0,
+            "strikeouts": 0,
+            "walks": 0,
+            "stolen_bases": 0,
+            "caught_stealing": 0,
+            "batting_average": 100.0,
+            "on_base_percentage": 0.0,
+            "slugging_percentage": 0.0,
+        }
         if (
             self.position is None
             or self.jersey_number is None

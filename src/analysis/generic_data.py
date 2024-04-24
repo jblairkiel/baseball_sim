@@ -1,9 +1,11 @@
+from typing import Dict
 import plotly.express as px
+import pandas as pd
 
 
 class Generic_Data:
 
-    def __init__(self, df, data_options):
+    def __init__(self, df: pd.DataFrame, data_options: Dict[str,str]|None):
 
         self.df = df
         self.data_options = data_options
