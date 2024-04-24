@@ -12,3 +12,4 @@ ruff
 mutmut
 tensorflow
 ipykernel
+hammett

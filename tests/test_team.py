@@ -14,6 +14,11 @@ class TestTeam:
     #     x = generate_team()
     #     assert type(x) == Team
 
+    def test_generate_team_is_not_none(self):
+        """Tests if Nones are passed in"""
+        new_team = generate_team()
+        new_team is not None
+
     # @given(text(), text(), integers(1,9), integers(0,99))
     def test_generate_single_random_team(self):
         """Tests if a single team can be created"""

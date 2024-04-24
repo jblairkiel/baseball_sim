@@ -1,15 +1,16 @@
+from typing import List
 from src.player import Player
 
 
 class Team:
 
-    def __init__(self, name: str, players=None, coach=None, team_value=None):
-        self.name = name
-        self.players = players
-        self.coach = coach
-        self.wins = 0
-        self.losses = 0
-        self.team_value = team_value
+    def __init__(self, name: str, players:List[Player]|None=None, coach:Player=None, team_value:float=None):
+        self.name:str = name
+        self.players:List[Player] = players
+        self.coach:Player = coach
+        self.wins:int = 0
+        self.losses:int = 0
+        self.team_value:float = team_value
         if (
             self.name is None
             or self.players is None

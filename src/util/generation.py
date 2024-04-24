@@ -1,5 +1,6 @@
 import random as rand
 from random import gauss
+from src.game_result import Game_Result
 from src.util.randoms import generate_random_name
 from src.player import Player
 from src.team import Team
@@ -9,7 +10,34 @@ from src.game import Game
 from src.util.logic.StrikeZone import StrikeZone
 from typing import List, Dict
 
+#TODO beef up
+def generate_game():
+    team_a = generate_team()
+    team_b = generate_team()
+    game_obj = Game(team_a, team_b)
+    return game_obj
 
+def generate_game_result():
+    team_a_runs = int(gauss(4, 2))
+    team_b_runs = int(gauss(4, 2))
+    game_obj = Game_Result(team_a_runs, team_b_runs)
+    return game_obj
+
+def simluate_game(self, team_a: Team, team_b: Team) -> Game_Result:
+        """Simulates a game"""
+        # Dummy Logic Here
+
+        team_a_runs = int(self.team_a.value * gauss(
+            self.avg_max_runs, self.avg_min_runs
+        ))
+
+        team_b_runs = int(self.team_b.value * gauss(
+            self.avg_max_runs, self.avg_min_runs
+        ))
+
+        gr = Game_Result(team_a_runs, team_b_runs)
+
+        return gr
 
 def generate_player(position, jersey_num=None) -> Player:
     """Randomy Generates a player"""

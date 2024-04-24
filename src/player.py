@@ -16,14 +16,14 @@ class Player:
         last_name: str = "",
     ):
 
-        self.first_name = first_name
-        self.last_name = last_name
-        self.position = position
+        self.first_name:str = first_name
+        self.last_name:str = last_name
+        self.position:str = position
         if jersey_number is None:
-            self.jersey_number = rand.randrange(0, 99)
+            self.jersey_number:int = rand.randrange(0, 99)
         else:
-            self.jersey_number = jersey_number
-        self.stats = PlayerStats().__dict__()
+            self.jersey_number:int = jersey_number
+        self.stats = PlayerStats().__dict__
         if (
             self.position is None
             or self.jersey_number is None
