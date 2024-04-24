@@ -37,7 +37,7 @@ jobs:
     - name: Test with pytest
       run: |
         pip install pytest pytest-cov
-        python -m pytest --cov=./myapp --cov-report xml
+        python -m pytest --cov=./src --cov-report xml
     - name: Coveralls
       uses: coverallsapp/github-action@master
       with:
