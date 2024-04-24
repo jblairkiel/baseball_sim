@@ -9,3 +9,5 @@ names
 coverage
 coverage-badge
 ruff
+mutmut
+tensorflow
