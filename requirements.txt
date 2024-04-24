@@ -11,3 +11,4 @@ coverage-badge
 ruff
 mutmut
 tensorflow
+ipykernel
