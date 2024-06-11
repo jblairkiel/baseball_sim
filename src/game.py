@@ -1,33 +1,17 @@
-
+"""Module for game"""
+import sys
+sys.path.insert(0, "..") # pragma: no mutate
 from random import gauss
 from src.team import Team
 from src.game_result import Game_Result
+from config.game_config import avg_config
 
-class Game():
 
-    def __init__(self, teamA: Team, teamB: Team, game_num=0,):
+class Game:
+    """Class for game"""
 
-        self.avg_max_runs = 3
-        self.avg_min_runs = 1
-        self.teamA = teamA
-        self.teamB = teamB
-        self.game_num = game_num
+    def __init__(self, team_a: Team, team_b: Team, game_num: int=1):
 
-    
-    def simluate_game(self) -> Game_Result:
-
-        #Dummy Logic Here
-
-        teamA_runs = -1
-        while teamA_runs < 0:
-            teamA_runs =  self.teamA.value * gauss(self.avg_max_runs, self.avg_min_runs)
-
-            
-        teamB_runs = -1
-        while teamB_runs < 0:
-            teamB_runs =  self.teamB.value * gauss(self.avg_max_runs, self.avg_min_runs)
-
-        gr = Game_Result(teamA_runs, teamB_runs)
-
-        return gr
-        
+        self.team_a: Team = team_a
+        self.team_b: Team = team_b
+        self.game_num: int = game_num

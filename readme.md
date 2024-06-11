@@ -1,0 +1,2 @@
+![Code Coverage](output/coverage.svg)
+[![Coverage Status](https://coveralls.io/repos/github/jblairkiel/baseball_sim/badge.svg?branch=mutmut_testing)](https://coveralls.io/github/jblairkiel/baseball_sim?branch=mutmut_testing)
