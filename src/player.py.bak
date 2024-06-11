@@ -44,7 +44,7 @@ class Player:
 
     def get_on_base_percentage(self):
         """Retreives the batting average"""
-        if self.stats.at_bats is not None:
+        if self.stats.at_bats is None:
             raise ValueError("at_bats must not be None")
         if self.stats.at_bats == 0:
             return 0.0

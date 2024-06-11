@@ -11,12 +11,6 @@ class Team:
         self.wins:int = 0
         self.losses:int = 0
         self.team_value:float = team_value
-        if (
-            self.name is None and self.players is None
-            or self.coach is None
-            or self.team_value is None
-        ):
-            raise ValueError("Must have all attrs be not None")
 
     def __str__(self):
         newline = "\n"

@@ -39,7 +39,7 @@ jobs:
         pip install pytest pytest-cov
         python -m pytest --cov=./src --cov-report lcov
     - name: Coveralls
-      uses: coverallsapp/github-action@master
+      uses: coverallsapp/github-action@v2
       with:
         github-token: ${{ secrets.GITHUB_TOKEN }}
         path-to-lcov: coverage.lcov
