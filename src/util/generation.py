@@ -41,7 +41,7 @@ def simluate_game(self, team_a: Team, team_b: Team) -> Game_Result:
             gr = Game_Result(team_a_runs + 1, team_b_runs) if walkoff_chance % 2 == 0 else Game_Result(team_a_runs, team_b_runs + 1)
             return gr
         else:
-            return Game_Result(team_a_runs 1, team_b_runs) 
+            return Game_Result(team_a_runs + 1, team_b_runs) 
 
         return gr
 
@@ -99,7 +99,7 @@ def generate_league() -> League:
 
 def generate_pitch() -> Pitch:
     """Randomly generates a pitch within bounds"""
-    pitch_choices = ["fb", "ch" "cur"]
+    pitch_choices = "fb", "ch", "cur"
    
     full_pitch_bounds = StrikeZone().get_full_bounds()
 
