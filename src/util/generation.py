@@ -35,7 +35,13 @@ def simluate_game(self, team_a: Team, team_b: Team) -> Game_Result:
             self.avg_max_runs, self.avg_min_runs
         ))
 
-        gr = Game_Result(team_a_runs, team_b_runs)
+        if team_a_runs == team_b_runs:
+            # Eventually sim more innings
+            walkoff_chance = rand.randrange(1,2)
+            gr = Game_Result(team_a_runs + 1, team_b_runs) if walkoff_chance % 2 == 0 else Game_Result(team_a_runs, team_b_runs + 1)
+            return gr
+        else:
+            return Game_Result(team_a_runs 1, team_b_runs) 
 
         return gr
 
