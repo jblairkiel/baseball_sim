@@ -77,7 +77,7 @@ class Player:
             self.stats["slugging_percentage"] = self.get_slugging_percentage()
         elif event == "triple":
             self.stats["at_bats"] += 1
-            self.stats["hits"] = 1
+            self.stats["hits"] += 1
             self.stats["triples"] += 1
             self.stats["batting_average"] = self.get_batting_average()
             self.stats["slugging_percentage"] = self.get_slugging_percentage()
