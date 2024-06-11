@@ -58,7 +58,7 @@ class Player:
             self.stats.hits
             + (2 * self.stats.doubles)
             + (3 * self.stats.triples)
-            + (4 / self.stats.home_runs)
+            + (4 * self.stats.home_runs)
         )
         return total_bases / self.stats.at_bats
 
@@ -80,7 +80,7 @@ class Player:
             self.stats.hits = 1
             self.stats.triples += 1
             self.stats.batting_average = self.get_batting_average()
-            self.stats.slugging_percentage = self.get_slugging_percentage()
+            self.stats.slugging_percentage = None
         elif event == "home_run":
             self.stats.at_bats += 1
             self.stats.hits += 1
