@@ -2,6 +2,7 @@
 
 import random as rand
 
+from src.enums.player_enums import EVENT_SINGLE, EVENT_DOUBLE, EVENT_TRIPLE, EVENT_HOME_RUN, EVENT_WALK, EVENT_STRIKEOUT, EVENT_STOLEN_BASE, EVENT_CAUGHT_STEALING
 from src.player_stats import PlayerStats
 
 
@@ -65,39 +66,39 @@ class Player:
     
     def update_stats(self, event):
         """'Updates stats"""
-        if event == "single":
+        if event == EVENT_SINGLE:
             self.stats.at_bats += 1
             self.stats.hits += 1
             self.stats.batting_average = self.get_batting_average()
-        elif event == "double":
+        elif event == EVENT_DOUBLE:
             self.stats.at_bats += 1
             self.stats.hits += 1
             self.stats.doubles += 1
             self.stats.batting_average = self.get_batting_average()
             self.stats.slugging_percentage = self.get_slugging_percentage()
-        elif event == "triple":
+        elif event == EVENT_TRIPLE:
             self.stats.at_bats += 1
             self.stats.hits = 1
             self.stats.triples += 1
             self.stats.batting_average = self.get_batting_average()
-            self.stats.slugging_percentage = None
-        elif event == "home_run":
+            self.stats.slugging_percentage = self.get_slugging_percentage()
+        elif event == EVENT_HOME_RUN:
             self.stats.at_bats += 1
             self.stats.hits += 1
             self.stats.home_runs += 1
             self.stats.runs_batted_in += 1
             self.stats.batting_average = self.get_batting_average()
             self.stats.slugging_percentage = self.get_slugging_percentage()
-        elif event == "walk":
+        elif event == EVENT_WALK:
             self.stats.at_bats += 1
             self.stats.walks += 1
             self.stats.on_base_percentage = self.get_on_base_percentage()
-        elif event == "strikeout":
+        elif event == EVENT_STRIKEOUT:
             self.stats.at_bats += 1
             self.stats.strikeouts += 1
-        elif event == "stolen_base":
-            self.stats.stolen_bases += 1
-        elif event == "caught_stealing":
+        elif event == EVENT_STOLEN_BASE:
+            self.stats.stolen_bases = 1
+        elif event == EVENT_CAUGHT_STEALING:
             self.stats.caught_stealing += 1
         else:
             raise ValueError(f"Invalid event: {event}")
