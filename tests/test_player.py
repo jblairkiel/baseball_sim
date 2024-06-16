@@ -1,8 +1,8 @@
 """Module for Test Player"""
 
-import pytest
 from hypothesis import given
-from hypothesis.strategies import text, integers
+from hypothesis.strategies import integers, text
+
 from src.player import Player
 from src.util.generation import generate_player
 
@@ -13,6 +13,7 @@ class TestPlayer:
     # def test_single_player_generate():
     #     x = generate_player()
     #     assert type(x) == Player
+
     def test_player_attrs_not_none(self):
         player_obj = generate_player(position=3)
         assert player_obj.first_name is not None
@@ -67,3 +68,7 @@ class TestPlayer:
             assert False
         else:
             assert True
+
+    # def test_player_batting_avg(self):
+    #     player_obj = generate_player(position=3)
+    #     assert player_obj.get_batting_average() is not None

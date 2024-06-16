@@ -1,49 +1,57 @@
 import random as rand
 from random import gauss
+from typing import List
+
+from src.game import Game
 from src.game_result import Game_Result
-from src.util.randoms import generate_random_name
+from src.league import League
+from src.pitch import Pitch
 from src.player import Player
 from src.team import Team
-from src.pitch import Pitch
-from src.league import League
-from src.game import Game
 from src.util.logic.StrikeZone import StrikeZone
-from typing import List, Dict
+from src.util.randoms import generate_random_name
 
-#TODO beef up
+
+# TODO beef up
 def generate_game():
     team_a = generate_team()
     team_b = generate_team()
     game_obj = Game(team_a, team_b)
     return game_obj
 
+
 def generate_game_result():
     team_a_runs = int(gauss(4, 2))
     team_b_runs = int(gauss(4, 2))
+    while team_a_runs == team_b_runs:
+        team_b_runs = int(gauss(4, 2))
+
     game_obj = Game_Result(team_a_runs, team_b_runs)
     return game_obj
 
+
 def simluate_game(self, team_a: Team, team_b: Team) -> Game_Result:
-        """Simulates a game"""
-        # Dummy Logic Here
+    """Simulates a game"""
+    # Dummy Logic Here
 
-        team_a_runs = int(self.team_a.value * gauss(
-            self.avg_max_runs, self.avg_min_runs
-        ))
+    team_a_runs = int(self.team_a.value * gauss(self.avg_max_runs, self.avg_min_runs))
 
-        team_b_runs = int(self.team_b.value * gauss(
-            self.avg_max_runs, self.avg_min_runs
-        ))
+    team_b_runs = int(self.team_b.value * gauss(self.avg_max_runs, self.avg_min_runs))
 
-        if team_a_runs == team_b_runs:
-            # Eventually sim more innings
-            walkoff_chance = rand.randrange(1,2)
-            gr = Game_Result(team_a_runs + 1, team_b_runs) if walkoff_chance % 2 == 0 else Game_Result(team_a_runs, team_b_runs + 1)
-            return gr
-        else:
-            return Game_Result(team_a_runs + 1, team_b_runs) 
-
+    if team_a_runs == team_b_runs:
+        # Eventually sim more innings
+        walkoff_chance = rand.randrange(1, 2)
+        gr = (
+            Game_Result(team_a_runs + 1, team_b_runs)
+            if walkoff_chance % 2 == 0
+            else Game_Result(team_a_runs, team_b_runs + 1)
+        )
         return gr
+    else:
+        return Game_Result(team_a_runs + 1, team_b_runs)
+
+    return gr
+
 
 def generate_player(position, jersey_num=None) -> Player:
     """Randomy Generates a player"""
@@ -100,14 +108,14 @@ def generate_league() -> League:
 def generate_pitch() -> Pitch:
     """Randomly generates a pitch within bounds"""
     pitch_choices = "fb", "ch", "cur"
-   
+
     full_pitch_bounds = StrikeZone().get_full_bounds()
 
     # gaussian curve
     gaussian_x_mean = 0
     gaussian_y_mean = 0
-    #gaussian_x_sigma = 1.15
-    #gaussian_y_sigma = 1.2
+    # gaussian_x_sigma = 1.15
+    # gaussian_y_sigma = 1.2
     gaussian_x_sigma = full_pitch_bounds[0][0] / 2.55
     gaussian_y_sigma = full_pitch_bounds[1][0] / 2.55
 
@@ -125,8 +133,6 @@ def generate_pitch() -> Pitch:
     pitch = Pitch(rand_x_pitch, rand_y_pitch, rand_pitch_choice)
 
     return pitch
-
-
 
 
 def generate_game_runs(team_a: Team, team_b: Team) -> List[int]:

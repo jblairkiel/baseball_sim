@@ -1,11 +1,12 @@
 from typing import Dict
-import plotly.express as px
+
 import pandas as pd
+import plotly.express as px
 
 
 class Generic_Data:
 
-    def __init__(self, df: pd.DataFrame, data_options: Dict[str,str]|None):
+    def __init__(self, df: pd.DataFrame, data_options: Dict[str, str] | None = None):
 
         self.df = df
         self.data_options = data_options
@@ -25,8 +26,13 @@ class Generic_Data:
 
     def get_pie(self, data_item) -> px.pie:
 
-        countdf = self.df.groupby([data_item]).size().reset_index(name='counts')
-        his = px.pie(countdf, values=countdf['counts'], names=data_item, title=f"Pie of {data_item}")
+        countdf = self.df.groupby([data_item]).size().reset_index(name="counts")
+        his = px.pie(
+            countdf,
+            values=countdf["counts"],
+            names=data_item,
+            title=f"Pie of {data_item}",
+        )
 
         return his
 
@@ -48,4 +54,3 @@ class Generic_Data:
         scatt = self.get_scatter(x, y, title, color=color)
 
         scatt.show()
-
