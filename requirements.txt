@@ -13,3 +13,4 @@ mutmut
 tensorflow
 ipykernel
 hammett
+typing

@@ -11,6 +11,9 @@ from src.team import Team
 from src.util.logic.StrikeZone import StrikeZone
 from src.util.randoms import generate_random_name
 
+avg_max_runs = 9
+avg_min_runs = 2
+
 
 # TODO beef up
 def generate_game():
@@ -21,45 +24,52 @@ def generate_game():
 
 
 def generate_game_result():
-    team_a_runs = int(gauss(4, 2))
-    team_b_runs = int(gauss(4, 2))
-    while team_a_runs == team_b_runs:
-        team_b_runs = int(gauss(4, 2))
 
-    game_obj = Game_Result(team_a_runs, team_b_runs)
-    return game_obj
+    game_obj = generate_game()
+    game_result_obj = simluate_game(game_obj)
+    return game_result_obj
 
 
-def simluate_game(self, team_a: Team, team_b: Team) -> Game_Result:
+def simluate_game(game_obj: Game):
     """Simulates a game"""
     # Dummy Logic Here
+    team_a = game_obj.team_a
+    team_b = game_obj.team_b
 
-    team_a_runs = int(self.team_a.value * gauss(self.avg_max_runs, self.avg_min_runs))
+    team_a_runs = int(team_a.team_value * gauss(avg_max_runs, avg_min_runs))
 
-    team_b_runs = int(self.team_b.value * gauss(self.avg_max_runs, self.avg_min_runs))
+    team_b_runs = int(team_b.team_value * gauss(avg_max_runs, avg_min_runs))
 
     if team_a_runs == team_b_runs:
         # Eventually sim more innings
         walkoff_chance = rand.randrange(1, 2)
         gr = (
-            Game_Result(team_a_runs + 1, team_b_runs)
+            Game_Result(team_a, team_b, team_a_runs + 1, team_b_runs)
             if walkoff_chance % 2 == 0
-            else Game_Result(team_a_runs, team_b_runs + 1)
+            else Game_Result(team_a, team_b, team_a_runs, team_b_runs + 1)
         )
-        return gr
+        game_obj.game_result = gr
     else:
-        return Game_Result(team_a_runs + 1, team_b_runs)
 
-    return gr
+        gr = Game_Result(team_a, team_b, team_a_runs + 1, team_b_runs)
+        game_obj.game_result = gr
+
+    return game_obj.game_result
 
 
-def generate_player(position, jersey_num=None) -> Player:
+def generate_player(
+    position: int, jersey_num: int | None = None, team_roster: List[Player | None] = []
+) -> Player:
     """Randomy Generates a player"""
-    f_name, l_name = generate_random_name()
+    f_name, l_name = generate_random_name(team_roster)
 
     # Generate a random character class and race for the new player
     new_player = Player(position, jersey_num, f_name, l_name)
     return new_player
+
+
+def get_list_of_player_nums(team_roster: List[Player | None]):
+    return [player.jersey_number for player in team_roster]
 
 
 def generate_team() -> Team:
@@ -68,7 +78,14 @@ def generate_team() -> Team:
     position_list = [1, 2, 3, 4, 5, 6, 7, 8, 9]
     team_roster = []
     for i, _ in enumerate(position_list):
-        new_player = generate_player(position_list[i])
+
+        jersey_number = rand.randrange(0, 99)
+        while jersey_number in get_list_of_player_nums(team_roster):
+            jersey_number = rand.randrange(0, 99)
+
+        new_player = generate_player(
+            position_list[i], jersey_num=jersey_number, team_roster=team_roster
+        )
         team_roster.append(new_player)
 
     # Coach

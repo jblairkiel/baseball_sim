@@ -1,10 +1,7 @@
 """Module for Test Team"""
 
-import pytest
-from hypothesis import given
-from hypothesis.strategies import text, integers
 from src.team import Team
-from src.util.generation import generate_team
+from src.util.generation import generate_team, get_list_of_player_nums
 
 
 class TestTeam:
@@ -32,6 +29,14 @@ class TestTeam:
             print(lst[a])
 
         assert len(lst) == magic_num
+
+    def test_generate_team_no_duplicate_nums(self):
+        magic_num = 10
+        for _ in range(0, magic_num):
+            new_team = generate_team()
+            assert len(get_list_of_player_nums(new_team.players)) == len(
+                set(get_list_of_player_nums(new_team.players))
+            )
 
     def test_team_creation_none(self):
         """Tests if Nones are passed in"""

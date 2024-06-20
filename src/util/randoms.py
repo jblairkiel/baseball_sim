@@ -1,4 +1,5 @@
 import random as rand
+from typing import List
 
 import names
 import plotly.express as px
@@ -15,7 +16,7 @@ from src.enums.misc_enums import Genders
 #     posList = [1, 2, 3, 4, 5, 6, 7, 8, 9]
 
 
-def generate_random_name():
+def generate_random_name(team_roster: List[int] = []):
     first_name = names.get_first_name(gender=Genders.MALE)
     last_name = names.get_last_name()
 
